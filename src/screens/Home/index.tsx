@@ -37,12 +37,16 @@ export function Home() {
   }
 
   function handleFilterLoginData() {
-    const newData = data.filter(item => item.service_name === searchText)
+    const newData = data.filter(item => item.service_name.toLowerCase().trim() === searchText.toLowerCase().trim())
 
-    newData.length > 0 ? setSearchListData(newData) : setSearchListData(data)
+    setSearchListData(newData);
   }
 
   function handleChangeInputText(text: string) {
+    if (!text.trim()) {
+      setSearchListData(data);
+    }
+
     setSearchText(text);
   }
 
