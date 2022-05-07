@@ -30,15 +30,20 @@ export function Home() {
 
   async function loadData() {
     const dataKey = '@savepass:logins';
-    // Get asyncStorage data, use setSearchListData and setData
+    const data = await AsyncStorage.getItem(dataKey);
+
+    setSearchListData(JSON.parse(data));
+    setData(JSON.parse(data));
   }
 
   function handleFilterLoginData() {
-    // Filter results inside data, save with setSearchListData
+    const newData = data.filter(item => item.service_name === searchText)
+
+    newData.length > 0 ? setSearchListData(newData) : setSearchListData(data)
   }
 
   function handleChangeInputText(text: string) {
-    // Update searchText value
+    setSearchText(text);
   }
 
   useFocusEffect(useCallback(() => {
@@ -49,8 +54,8 @@ export function Home() {
     <>
       <Header
         user={{
-          name: 'Rocketseat',
-          avatar_url: 'https://i.ibb.co/ZmFHZDM/rocketseat.jpg'
+          name: 'Pedro',
+          avatar_url: 'https://github.com/pedrobovolindavila.png'
         }}
       />
       <Container>
